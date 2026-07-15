@@ -18,11 +18,11 @@ const services = [
 ];
 
 const tech = [
-  ["◆", "DJI Matrice", "Enterprise UAV"],
-  ["◉", "Zenmuse L2 / L3", "LiDAR payloads"],
-  ["△", "VTOL Systems", "Long-range drones"],
-  ["⌖", "GNSS RTK", "High precision"],
-  ["▦", "GIS Platforms", "Mapping & analysis"],
+  { image: "/equipment/matrice-350-field.jpg", title: "DJI Matrice 350 RTK", sub: "Enterprise UAV", alt: "DJI Matrice 350 RTK flying during a mountain operation" },
+  { image: "/equipment/zenmuse-l2-field.jpg", title: "DJI Zenmuse L2", sub: "LiDAR payload", alt: "Survey operator flying a DJI drone equipped with a Zenmuse L2" },
+  { image: "/equipment/long-endurance-vtol-field.jpg", title: "Long-endurance VTOL", sub: "Large-area mapping", alt: "Long-endurance fixed-wing VTOL drone in a field" },
+  { image: "/equipment/trimble-r12i-field.jpg", title: "Trimble R12i", sub: "GNSS RTK receiver", alt: "Surveyor using a Trimble R12i GNSS receiver in the field" },
+  { image: "/equipment/trimble-tdc6-field.jpg", title: "Trimble TDC6", sub: "Mobile GIS & field data", alt: "Trimble TDC6 mobile GIS data collector used outdoors" },
 ];
 
 const industries = [
@@ -83,25 +83,26 @@ export default function Home() {
       </section>
 
       <section className="about light-section" id="about">
-        <div className="wrap about-grid">
-          <div className="section-copy">
+        <div className="wrap about-panel">
+          <div className="about-copy">
             <p className="eyebrow">ABOUT SPACECHAMPS</p>
             <h2>Precision Data.<br/>Smarter Decisions.<br/><span>Stronger Infrastructure.</span></h2>
-            <p>SpaceChamps is a leading geospatial technology company specializing in drone-based LiDAR surveying, aerial mapping, and advanced GIS solutions.</p>
-            <p>We transform complex terrain and infrastructure data into accurate, actionable insights that drive better planning, design, and decision-making.</p>
-            <a className="button blue" href="#technology">Learn More About Us <b>→</b></a>
+            <p>SpaceChamps brings drone-based LiDAR, aerial mapping, and GIS expertise into one connected geospatial workflow.</p>
+            <p>We turn complex terrain and infrastructure data into precise, decision-ready intelligence for planning, design, and delivery.</p>
+            <div className="about-capabilities"><span>LiDAR acquisition</span><span>Aerial mapping</span><span>GIS intelligence</span></div>
+            <a className="button blue" href="#technology">Explore Our Technology <b>→</b></a>
           </div>
-          <div className="stat-grid">
-            <div><i>♧</i><strong>500+</strong><small>Projects Supported</small></div>
-            <div><i>♙</i><strong>250+</strong><small>Enterprise Missions</small></div>
-            <div><i>✣</i><strong>50+</strong><small>Mission Configurations</small></div>
-            <div><i>◴</i><strong>98.7%</strong><small>Data Quality Target</small></div>
+          <div className="about-media">
+            <img src="/equipment/zenmuse-l2-field.jpg" alt="Survey operator flying a LiDAR-equipped drone in mountainous terrain" loading="lazy" />
+            <div className="about-photo-copy"><span>FIELD-TO-INSIGHT</span><strong>Capture reality.<br/>Deliver certainty.</strong></div>
+            <div className="about-quality"><i>LIVE</i><b>98.7%</b><small>Data quality target</small></div>
           </div>
-          <div className="about-visual">
-            <div className="mini-drone"><i/><i/><b>◆</b></div>
-            <div className="scan-cone"/>
-            <div className="tablet"><div className="tablet-map"><i/><i/><i/></div><span>LIVE TERRAIN MODEL</span></div>
-          </div>
+        </div>
+        <div className="wrap about-stats">
+          <article><span>01</span><strong>500+</strong><small>Projects supported</small></article>
+          <article><span>02</span><strong>250+</strong><small>Enterprise missions</small></article>
+          <article><span>03</span><strong>50+</strong><small>Mission configurations</small></article>
+          <article><span>04</span><strong>98.7%</strong><small>Data quality target</small></article>
         </div>
       </section>
 
@@ -117,10 +118,11 @@ export default function Home() {
       <section className="technology light-section" id="technology">
         <div className="wrap tech-layout">
           <div className="tech-heading"><p className="eyebrow">OUR TECHNOLOGY</p><h2>Advanced Equipment.<br/>Intelligent Workflows.</h2></div>
-          <div className="tech-cards">{tech.map(([,title,sub],index) => <div key={title}><i className={`equipment-image equipment-${index+1}`} aria-hidden="true"/><strong>{title}</strong><small>{sub}</small></div>)}</div>
+          <div className="tech-showcase">
+            <div className="tech-cards">{tech.map(({image,title,sub,alt}) => <article className="tech-card" key={title}><div className="tech-image"><img src={image} alt={alt} loading="lazy" /></div><strong>{title}</strong><small>{sub}</small></article>)}</div>
+          </div>
         </div>
         <div className="wrap tech-feature">
-          <div className="tech-drone"><span className="rotor rleft"/><span className="rotor rright"/><i/><b>SC</b></div>
           <div className="tech-points"><div><i>⌾</i><span><b>High-accuracy sensors</b><small>Centimeter-level data</small></span></div><div><i>✣</i><span><b>AI-powered processing</b><small>Faster insights</small></span></div><div><i>⌁</i><span><b>Cloud-based workflows</b><small>Secure &amp; scalable</small></span></div><div><i>▣</i><span><b>Multi-platform delivery</b><small>Web, mobile &amp; desktop</small></span></div></div>
         </div>
       </section>
