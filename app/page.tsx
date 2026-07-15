@@ -162,47 +162,142 @@ export default function Home() {
             <div className="drone-stage">
               <span className="pulse p1"/><span className="pulse p2"/><span className="pulse p3"/>
               <span className="drone-glow"/>
-              <svg className="drone-svg" viewBox="0 0 200 200" role="img" aria-label="Survey drone with spinning rotors">
+              <svg className="drone-svg" viewBox="0 0 400 400" role="img" aria-label="Survey drone with spinning rotors">
                 <defs>
-                  <linearGradient id="drbody" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stopColor="#1d4068" />
+                  <linearGradient id="bodyTop" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#2a5580" />
+                    <stop offset="1" stopColor="#0c2240" />
+                  </linearGradient>
+                  <linearGradient id="bodyFront" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#1a3d5c" />
                     <stop offset="1" stopColor="#0a1d36" />
                   </linearGradient>
+                  <linearGradient id="armL" x1="1" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#1e4060" />
+                    <stop offset="1" stopColor="#14304d" />
+                  </linearGradient>
+                  <linearGradient id="armR" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#1e4060" />
+                    <stop offset="1" stopColor="#14304d" />
+                  </linearGradient>
+                  <radialGradient id="propDisc" cx="50%" cy="50%">
+                    <stop offset="0" stopColor="rgba(56,189,248,0.14)" />
+                    <stop offset="0.55" stopColor="rgba(56,189,248,0.07)" />
+                    <stop offset="1" stopColor="rgba(56,189,248,0)" />
+                  </radialGradient>
+                  <radialGradient id="motorRing" cx="50%" cy="45%">
+                    <stop offset="0" stopColor="#2a5080" />
+                    <stop offset="1" stopColor="#0f2847" />
+                  </radialGradient>
+                  <filter id="ledGlow" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <filter id="domeGlow" x="-80%" y="-80%" width="260%" height="260%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
                 </defs>
-                <g stroke="#274f76" strokeWidth="7" strokeLinecap="round">
-                  <line x1="80" y1="93" x2="50" y2="55" />
-                  <line x1="120" y1="93" x2="150" y2="55" />
-                  <line x1="80" y1="107" x2="50" y2="145" />
-                  <line x1="120" y1="107" x2="150" y2="145" />
+
+                {/* Ground shadow */}
+                <ellipse cx="200" cy="238" rx="105" ry="16" fill="rgba(0,0,0,0.28)" style={{filter:'blur(12px)'}} />
+
+                {/* Arms */}
+                <g>
+                  <line x1="165" y1="175" x2="90" y2="112" stroke="url(#armL)" strokeWidth="15" strokeLinecap="round" />
+                  <line x1="235" y1="175" x2="310" y2="112" stroke="url(#armR)" strokeWidth="15" strokeLinecap="round" />
+                  <line x1="165" y1="205" x2="90" y2="275" stroke="url(#armL)" strokeWidth="15" strokeLinecap="round" />
+                  <line x1="235" y1="205" x2="310" y2="275" stroke="url(#armR)" strokeWidth="15" strokeLinecap="round" />
+                  {/* Arm highlight edges */}
+                  <line x1="165" y1="172" x2="90" y2="109" stroke="rgba(86,171,255,0.12)" strokeWidth="1.5" strokeLinecap="round" />
+                  <line x1="235" y1="172" x2="310" y2="109" stroke="rgba(86,171,255,0.12)" strokeWidth="1.5" strokeLinecap="round" />
                 </g>
-                <rect x="72" y="84" width="56" height="32" rx="15" fill="url(#drbody)" stroke="rgba(86,171,255,.55)" strokeWidth="1.5" />
-                <circle cx="100" cy="100" r="7.5" fill="#08182e" stroke="rgba(56,189,248,.75)" strokeWidth="1.5" />
-                <circle cx="100" cy="100" r="2.6" fill="#7dd3fc" />
-                <g fill="#143a5e" stroke="rgba(86,171,255,.55)" strokeWidth="1.5">
-                  <circle cx="50" cy="55" r="9" />
-                  <circle cx="150" cy="55" r="9" />
-                  <circle cx="50" cy="145" r="9" />
-                  <circle cx="150" cy="145" r="9" />
+
+                {/* Body */}
+                <rect x="157" y="163" width="86" height="54" rx="11" fill="url(#bodyTop)" stroke="rgba(86,171,255,0.45)" strokeWidth="1.5" />
+                {/* Body front face (depth) */}
+                <rect x="157" y="205" width="86" height="12" rx="3" fill="url(#bodyFront)" stroke="rgba(86,171,255,0.25)" strokeWidth="0.75" />
+                {/* Panel lines */}
+                <line x1="167" y1="175" x2="233" y2="175" stroke="rgba(56,189,248,0.28)" strokeWidth="0.8" />
+                <line x1="167" y1="203" x2="233" y2="203" stroke="rgba(56,189,248,0.2)" strokeWidth="0.6" />
+                <line x1="200" y1="166" x2="200" y2="215" stroke="rgba(56,189,248,0.12)" strokeWidth="0.5" />
+
+                {/* Sensor dome */}
+                <circle cx="200" cy="188" r="11" fill="#08182e" stroke="rgba(56,189,248,0.7)" strokeWidth="1.5" />
+                <circle cx="200" cy="188" r="5" fill="#0c2a4a" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" />
+                <circle cx="200" cy="188" r="2.2" fill="#7dd3fc" filter="url(#domeGlow)" />
+
+                {/* Front LEDs */}
+                <rect x="161" y="168" width="5" height="5" rx="1.5" fill="#22d3ee" filter="url(#ledGlow)" />
+                <rect x="234" y="168" width="5" height="5" rx="1.5" fill="#22d3ee" filter="url(#ledGlow)" />
+                {/* Rear LEDs */}
+                <rect x="161" y="208" width="5" height="5" rx="1.5" fill="#f43f5e" filter="url(#ledGlow)" opacity="0.85" />
+                <rect x="234" y="208" width="5" height="5" rx="1.5" fill="#f43f5e" filter="url(#ledGlow)" opacity="0.85" />
+
+                {/* Antenna */}
+                <line x1="200" y1="163" x2="200" y2="144" stroke="#3a6d94" strokeWidth="2.2" strokeLinecap="round" />
+                <circle cx="200" cy="142" r="3.5" fill="#22d3ee" filter="url(#ledGlow)" />
+
+                {/* Camera gimbal */}
+                <rect x="192" y="220" width="16" height="14" rx="4" fill="#0a1829" stroke="rgba(86,171,255,0.5)" strokeWidth="1.2" />
+                <circle cx="200" cy="227" r="5.5" fill="#06101e" stroke="rgba(56,189,248,0.6)" strokeWidth="1.2" />
+                <circle cx="200" cy="227" r="2.2" fill="#38bdf8" />
+
+                {/* Landing gear */}
+                <g stroke="#2a4a68" strokeWidth="3.5" strokeLinecap="round" fill="none">
+                  <line x1="165" y1="195" x2="150" y2="232" />
+                  <line x1="150" y1="232" x2="138" y2="232" />
+                  <line x1="235" y1="195" x2="250" y2="232" />
+                  <line x1="250" y1="232" x2="262" y2="232" />
                 </g>
+
+                {/* Motor housings */}
+                <circle cx="90" cy="112" r="17" fill="url(#motorRing)" stroke="rgba(86,171,255,0.5)" strokeWidth="1.5" />
+                <circle cx="90" cy="112" r="8" fill="#0a1829" stroke="rgba(86,171,255,0.3)" strokeWidth="1" />
+                <circle cx="90" cy="112" r="3" fill="rgba(86,171,255,0.15)" />
+
+                <circle cx="310" cy="112" r="17" fill="url(#motorRing)" stroke="rgba(86,171,255,0.5)" strokeWidth="1.5" />
+                <circle cx="310" cy="112" r="8" fill="#0a1829" stroke="rgba(86,171,255,0.3)" strokeWidth="1" />
+                <circle cx="310" cy="112" r="3" fill="rgba(86,171,255,0.15)" />
+
+                <circle cx="90" cy="275" r="17" fill="url(#motorRing)" stroke="rgba(86,171,255,0.4)" strokeWidth="1.5" />
+                <circle cx="90" cy="275" r="8" fill="#081829" stroke="rgba(86,171,255,0.25)" strokeWidth="1" />
+                <circle cx="90" cy="275" r="3" fill="rgba(86,171,255,0.12)" />
+
+                <circle cx="310" cy="275" r="17" fill="url(#motorRing)" stroke="rgba(86,171,255,0.4)" strokeWidth="1.5" />
+                <circle cx="310" cy="275" r="8" fill="#081829" stroke="rgba(86,171,255,0.25)" strokeWidth="1" />
+                <circle cx="310" cy="275" r="3" fill="rgba(86,171,255,0.12)" />
+
+                {/* Propellers — 3 blades each, spinning */}
                 <g className="rotor">
-                  <circle cx="50" cy="55" r="27" fill="rgba(56,189,248,.07)" />
-                  <rect x="48" y="31" width="4" height="48" rx="2" fill="rgba(234,244,255,.6)" />
-                  <rect x="26" y="53" width="48" height="4" rx="2" fill="rgba(234,244,255,.6)" />
+                  <circle cx="90" cy="112" r="52" fill="url(#propDisc)" />
+                  <ellipse cx="90" cy="112" rx="3.5" ry="24" fill="rgba(200,230,255,0.5)" />
+                  <ellipse cx="90" cy="112" rx="3.5" ry="24" fill="rgba(200,230,255,0.5)" transform="rotate(60 90 112)" />
+                  <ellipse cx="90" cy="112" rx="3.5" ry="24" fill="rgba(200,230,255,0.5)" transform="rotate(120 90 112)" />
                 </g>
                 <g className="rotor rev">
-                  <circle cx="150" cy="55" r="27" fill="rgba(56,189,248,.07)" />
-                  <rect x="148" y="31" width="4" height="48" rx="2" fill="rgba(234,244,255,.6)" />
-                  <rect x="126" y="53" width="48" height="4" rx="2" fill="rgba(234,244,255,.6)" />
+                  <circle cx="310" cy="112" r="52" fill="url(#propDisc)" />
+                  <ellipse cx="310" cy="112" rx="3.5" ry="24" fill="rgba(200,230,255,0.5)" />
+                  <ellipse cx="310" cy="112" rx="3.5" ry="24" fill="rgba(200,230,255,0.5)" transform="rotate(60 310 112)" />
+                  <ellipse cx="310" cy="112" rx="3.5" ry="24" fill="rgba(200,230,255,0.5)" transform="rotate(120 310 112)" />
                 </g>
                 <g className="rotor rev">
-                  <circle cx="50" cy="145" r="27" fill="rgba(56,189,248,.07)" />
-                  <rect x="48" y="121" width="4" height="48" rx="2" fill="rgba(234,244,255,.6)" />
-                  <rect x="26" y="143" width="48" height="4" rx="2" fill="rgba(234,244,255,.6)" />
+                  <circle cx="90" cy="275" r="52" fill="url(#propDisc)" />
+                  <ellipse cx="90" cy="275" rx="3.5" ry="24" fill="rgba(200,230,255,0.4)" />
+                  <ellipse cx="90" cy="275" rx="3.5" ry="24" fill="rgba(200,230,255,0.4)" transform="rotate(60 90 275)" />
+                  <ellipse cx="90" cy="275" rx="3.5" ry="24" fill="rgba(200,230,255,0.4)" transform="rotate(120 90 275)" />
                 </g>
                 <g className="rotor">
-                  <circle cx="150" cy="145" r="27" fill="rgba(56,189,248,.07)" />
-                  <rect x="148" y="121" width="4" height="48" rx="2" fill="rgba(234,244,255,.6)" />
-                  <rect x="126" y="143" width="48" height="4" rx="2" fill="rgba(234,244,255,.6)" />
+                  <circle cx="310" cy="275" r="52" fill="url(#propDisc)" />
+                  <ellipse cx="310" cy="275" rx="3.5" ry="24" fill="rgba(200,230,255,0.4)" />
+                  <ellipse cx="310" cy="275" rx="3.5" ry="24" fill="rgba(200,230,255,0.4)" transform="rotate(60 310 275)" />
+                  <ellipse cx="310" cy="275" rx="3.5" ry="24" fill="rgba(200,230,255,0.4)" transform="rotate(120 310 275)" />
                 </g>
               </svg>
               <div className="drone-scan"/>
