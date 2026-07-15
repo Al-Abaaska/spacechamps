@@ -48,10 +48,18 @@ export default function Home() {
 
   useEffect(() => {
     const animated = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal], [data-reveal-group]"));
+    const counters = Array.from(document.querySelectorAll<HTMLElement>("[data-count]"));
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const setFinal = (el: HTMLElement) => {
+      const target = parseFloat(el.dataset.count || "0");
+      const decimals = parseInt(el.dataset.decimals || "0", 10);
+      el.textContent = target.toFixed(decimals) + (el.dataset.suffix || "");
+    };
 
     if (reducedMotion || !("IntersectionObserver" in window)) {
       animated.forEach((element) => element.classList.add("is-visible"));
+      counters.forEach(setFinal);
       return;
     }
 
@@ -65,11 +73,50 @@ export default function Home() {
     }, { threshold: 0.12, rootMargin: "0px 0px -45px 0px" });
 
     animated.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+
+    const runCount = (el: HTMLElement) => {
+      const target = parseFloat(el.dataset.count || "0");
+      const decimals = parseInt(el.dataset.decimals || "0", 10);
+      const suffix = el.dataset.suffix || "";
+      const duration = 1700;
+      const start = performance.now();
+      const step = (now: number) => {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * eased).toFixed(decimals) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          runCount(entry.target as HTMLElement);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach((el) => countObserver.observe(el));
+
+    const bar = document.getElementById("scrollProgress");
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      if (bar) bar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + "%";
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => {
+      observer.disconnect();
+      countObserver.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
     <main>
+      <div className="scroll-progress" id="scrollProgress" aria-hidden="true" />
       <header className="topbar">
         <div className="wrap nav-wrap">
           <a href="#home" aria-label="SpaceChamps home"><Brand /></a>
@@ -117,32 +164,37 @@ export default function Home() {
           <div className="about-media" data-reveal="right">
             <img src="/equipment/zenmuse-l2-field.jpg" alt="Survey operator flying a LiDAR-equipped drone in mountainous terrain" loading="lazy" />
             <div className="about-photo-copy"><span>FIELD-TO-INSIGHT</span><strong>Capture reality.<br/>Deliver certainty.</strong></div>
-            <div className="about-quality"><i>LIVE</i><b>98.7%</b><small>Data quality target</small></div>
+            <div className="about-quality"><i>LIVE</i><b data-count="98.7" data-decimals="1" data-suffix="%">0</b><small>Data quality target</small></div>
           </div>
         </div>
         <div className="wrap about-stats" data-reveal-group>
-          <article><span>01</span><strong>500+</strong><small>Projects supported</small></article>
-          <article><span>02</span><strong>250+</strong><small>Enterprise missions</small></article>
-          <article><span>03</span><strong>50+</strong><small>Mission configurations</small></article>
-          <article><span>04</span><strong>98.7%</strong><small>Data quality target</small></article>
+          <article><span>01</span><strong data-count="500" data-suffix="+">0</strong><small>Projects supported</small></article>
+          <article><span>02</span><strong data-count="250" data-suffix="+">0</strong><small>Enterprise missions</small></article>
+          <article><span>03</span><strong data-count="50" data-suffix="+">0</strong><small>Mission configurations</small></article>
+          <article><span>04</span><strong data-count="98.7" data-decimals="1" data-suffix="%">0</strong><small>Data quality target</small></article>
         </div>
       </section>
 
+      <div className="marquee" aria-hidden="true">
+        <div className="marquee-track">
+          {["LiDAR Acquisition", "Aerial Photogrammetry", "GIS Intelligence", "3D Terrain Models", "Orthomosaic Mapping", "RTK Positioning", "Point Clouds", "Corridor Surveys", "Volumetrics", "VTOL Mapping", "LiDAR Acquisition", "Aerial Photogrammetry", "GIS Intelligence", "3D Terrain Models", "Orthomosaic Mapping", "RTK Positioning", "Point Clouds", "Corridor Surveys", "Volumetrics", "VTOL Mapping"].map((kw, i) => <span key={i}>{kw}</span>)}
+        </div>
+      </div>
+
       <section className="services dark-section" id="services">
-        <div className="wrap services-layout">
-          <div className="services-intro" data-reveal="left"><p className="eyebrow">OUR SERVICES</p><h2>Comprehensive Geospatial Solutions</h2><p>From field capture to final deliverables, one connected geospatial workflow.</p></div>
+        <div className="services-orbs" aria-hidden="true"><span className="orb o1"/><span className="orb o2"/><span className="orb o3"/></div>
+        <div className="wrap">
+          <div className="services-intro" data-reveal="left"><p className="eyebrow">OUR SERVICES</p><h2>Comprehensive <span>Geospatial</span> Solutions</h2><p>From field capture to final deliverables, one connected geospatial workflow.</p></div>
           <div className="service-grid" data-reveal-group>
-            {services.map(([icon,title,text]) => <article className="service-card" key={title}><i>{icon}</i><h3>{title}</h3><p>{text}</p><a href="#contact" aria-label={`Request ${title}`}>→</a></article>)}
+            {services.map(([icon,title,text]) => <article className="service-card" key={title}><span className="service-icon">{icon}</span><h3>{title}</h3><p>{text}</p><a className="service-link" href="#contact" aria-label={`Request ${title}`}>Learn more <b>→</b></a></article>)}
           </div>
         </div>
       </section>
 
       <section className="technology light-section" id="technology">
-        <div className="wrap tech-layout">
-          <div className="tech-heading" data-reveal="left"><p className="eyebrow">OUR TECHNOLOGY</p><h2>Advanced Equipment.<br/>Intelligent Workflows.</h2></div>
-          <div className="tech-showcase">
-            <div className="tech-cards" data-reveal-group>{tech.map(({image,title,sub,alt}) => <article className="tech-card" key={title}><div className="tech-image"><img src={image} alt={alt} loading="lazy" /></div><strong>{title}</strong><small>{sub}</small></article>)}</div>
-          </div>
+        <div className="wrap tech-heading" data-reveal="left"><p className="eyebrow">OUR TECHNOLOGY</p><h2>Advanced Equipment.<br/><span>Intelligent Workflows.</span></h2><p>Industry-leading hardware that captures reality at centimeter-level precision.</p></div>
+        <div className="wrap">
+          <div className="tech-cards" data-reveal-group>{tech.map(({image,title,sub,alt}) => <article className="tech-card" key={title}><div className="tech-image"><img src={image} alt={alt} loading="lazy" /><span className="tech-tag">EQUIPMENT</span></div><div className="tech-meta"><strong>{title}</strong><small>{sub}</small></div></article>)}</div>
         </div>
         <div className="wrap tech-feature">
           <div className="tech-points" data-reveal-group><div><i>⌾</i><span><b>High-accuracy sensors</b><small>Centimeter-level data</small></span></div><div><i>✣</i><span><b>AI-powered processing</b><small>Faster insights</small></span></div><div><i>⌁</i><span><b>Cloud-based workflows</b><small>Secure &amp; scalable</small></span></div><div><i>▣</i><span><b>Multi-platform delivery</b><small>Web, mobile &amp; desktop</small></span></div></div>
@@ -151,21 +203,21 @@ export default function Home() {
 
       <section className="industry-band" id="industries">
         <div className="wrap industry-layout">
-          <div data-reveal="left"><p className="eyebrow">INDUSTRIES WE SERVE</p><h2>Empowering Industries<br/>with Geospatial Intelligence</h2></div>
+          <div data-reveal="left"><p className="eyebrow">INDUSTRIES WE SERVE</p><h2>Empowering Industries<br/>with <span>Geospatial Intelligence</span></h2></div>
           <div className="industry-grid" data-reveal-group>{industries.map(([icon,title,sub]) => <div key={title}><i>{icon}</i><b>{title}</b><small>{sub}</small></div>)}</div>
         </div>
       </section>
 
       <section className="workflow light-section" id="workflow">
         <div className="wrap workflow-layout">
-          <div data-reveal="left"><p className="eyebrow">OUR WORKFLOW</p><h2>From Data to Decisions</h2></div>
+          <div data-reveal="left"><p className="eyebrow">OUR WORKFLOW</p><h2>From Data to <span>Decisions</span></h2><p>A streamlined pipeline that turns raw aerial capture into decision-ready geospatial intelligence.</p></div>
           <div className="workflow-grid" data-reveal-group>{workflow.map(([num,title,text],index)=><article key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p><i className={`flow-image f${index+1}`}/>{index<workflow.length-1 && <b>→</b>}</article>)}</div>
         </div>
       </section>
 
       <section className="coverage-cta" id="coverage">
         <div className="wrap cta-grid">
-          <div data-reveal="left"><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with Precision Data?</h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div><a className="button blue" href="mailto:info@spacechamps.com">Request a Survey</a><a className="button outline" href="#contact">Get a Consultation ↗</a></div></div>
+          <div data-reveal="left"><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with <span>Precision Data?</span></h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div><a className="button blue" href="mailto:info@spacechamps.com">Request a Survey</a><a className="button outline" href="#contact">Get a Consultation ↗</a></div></div>
           <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a href="tel:+12025550147"><i>⌕</i> +1 (202) 555-0147</a><a href="mailto:info@spacechamps.com"><i>@</i> info@spacechamps.com</a><p><i>⌖</i> Regional operations across<br/>Africa &amp; Asia</p></div>
           <div className="world-map" aria-label="SpaceChamps coverage across Africa and Asia" data-reveal="right"><span className="africa-dot"/><span className="asia-dot"/><i>AFRICA</i><b>ASIA</b></div>
         </div>
