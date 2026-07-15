@@ -40,7 +40,7 @@ const workflow = [
 ];
 
 function Brand() {
-  return <span className="brand"><span className="brand-glyph"><i/><i/><i/></span><b>Space<span>Champs</span></b></span>;
+  return <span className="brand"><img src="/logo.svg" alt="SpaceChamps logo" className="brand-logo" /><b>Space<span>Champs</span></b></span>;
 }
 
 export default function Home() {
