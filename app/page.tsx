@@ -158,11 +158,6 @@ export default function Home() {
             <p className="hero-lead">SpaceChamps delivers accurate, reliable, and actionable geospatial data using cutting-edge drone technology, LiDAR, and AI-powered analytics.</p>
             <div className="hero-buttons"><a className="button blue" href="#services">Our Services <b>→</b></a><a className="button outline" href="#contact">Request a Survey <b>⌖</b></a></div>
           </div>
-          <div className="hero-previews" aria-label="Geospatial deliverable previews">
-            <div><i className="preview pcloud"/><b>LiDAR Point Cloud</b></div>
-            <div><i className="preview terrain-preview"/><b>3D Terrain Model</b></div>
-            <div><i className="preview ortho"/><b>Orthomosaic Map</b></div>
-          </div>
         </div>
         <div className="wrap proof-row">
           <div><i>⌾</i><span><b>High Accuracy</b><small>Centimeter-level precision</small></span></div>

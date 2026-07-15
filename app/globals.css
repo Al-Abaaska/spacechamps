@@ -108,8 +108,8 @@ img { display: block; max-width: 100%; }
     linear-gradient(92deg, rgba(3, 15, 31, .97) 0%, rgba(3, 15, 31, .82) 38%, rgba(3, 15, 31, .25) 74%),
     linear-gradient(0deg, rgba(3, 15, 31, .98), transparent 45%);
 }
-.hero-layout { padding-top: 160px; display: grid; grid-template-columns: 1fr 190px; align-items: center; min-height: 560px; }
-.hero-content { max-width: 660px; }
+.hero-layout { padding-top: 160px; display: grid; grid-template-columns: 1fr; align-items: center; min-height: 560px; }
+.hero-content { max-width: 680px; }
 .overline, .eyebrow {
   color: var(--cyan); font-size: 13px; font-weight: 700;
   letter-spacing: .16em; margin: 0 0 22px; text-transform: uppercase;
@@ -126,20 +126,6 @@ img { display: block; max-width: 100%; }
 }
 .hero-lead { font-size: 18px; line-height: 1.65; color: #dbe6f3; max-width: 560px; margin: 28px 0 36px; font-weight: 400; }
 .hero-buttons { display: flex; gap: 18px; }
-
-.hero-previews { display: grid; gap: 16px; justify-self: end; }
-.hero-previews > div {
-  width: 148px; padding: 9px; border: 1px solid rgba(112, 182, 255, .5);
-  border-radius: var(--radius-sm); background: rgba(2, 17, 32, .7);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, .3); backdrop-filter: blur(8px);
-  transition: transform .3s var(--ease), border-color .3s ease;
-}
-.hero-previews > div:hover { transform: translateY(-4px) scale(1.02); border-color: rgba(112, 182, 255, .85); }
-.hero-previews b { display: block; text-align: center; font-size: 12px; padding: 9px 0 3px; color: #eaf2fb; font-weight: 600; }
-.preview { display: block; height: 86px; border-radius: 8px; background-image: url('/spacechamps-hero.png'); background-size: 500px; }
-.pcloud { background-position: 65% 56%; filter: hue-rotate(25deg) saturate(1.9); }
-.terrain-preview { background-position: 85% 82%; }
-.ortho { background-position: 35% 85%; filter: saturate(.75) contrast(1.1); }
 
 .proof-row {
   position: absolute; left: 50%; transform: translateX(-50%); bottom: 34px;
@@ -491,10 +477,6 @@ footer { background: var(--navy); color: #fff; padding: 64px 0 24px; }
 .hero-content h1 { animation-delay: .1s; }
 .hero-content .hero-lead { animation-delay: .22s; }
 .hero-content .hero-buttons { animation-delay: .34s; }
-.hero-previews > div { opacity: 0; animation: hero-fade .7s var(--ease) forwards, float-y 6s ease-in-out infinite; }
-.hero-previews > div:nth-child(1) { animation-delay: .32s, .9s; }
-.hero-previews > div:nth-child(2) { animation-delay: .44s, 1.1s; }
-.hero-previews > div:nth-child(3) { animation-delay: .56s, 1.3s; }
 @keyframes hero-fade { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
 .proof-row > div { opacity: 0; animation: hero-rise .65s var(--ease) forwards; }
 .proof-row > div:nth-child(1) { animation-delay: .5s; }
@@ -614,7 +596,6 @@ footer { background: var(--navy); color: #fff; padding: 64px 0 24px; }
   .hero { min-height: auto; padding-bottom: 50px; }
   .hero-layout { padding-top: 130px; padding-bottom: 10px; }
   .proof-row { position: static; transform: none; margin-top: 48px; }
-  .hero-previews { display: none; }
   .about-panel { grid-template-columns: 1fr; }
   .about-media { min-height: 380px; }
   .about-stats { grid-template-columns: 1fr 1fr; }
@@ -726,7 +707,7 @@ footer { background: var(--navy); color: #fff; padding: 64px 0 24px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero::after, .hero-content .overline, .hero-content h1, .hero-content .hero-lead, .hero-content .hero-buttons,
-  .hero-previews > div, .proof-row > div, .about-media.is-visible > img, .about-quality i, .world-map span,
+  .proof-row > div, .about-media.is-visible > img, .about-quality i, .world-map span,
   .services-orbs .orb, .marquee-track, .service-track, .contact-summary::before, .workflow-grid article > b,
   .hero h1 span, .about-copy h2 span, .services-intro h2 span, .tech-heading h2 span,
   .workflow-layout h2 span, .industry-layout h2 span, .coverage-cta h2 span {
