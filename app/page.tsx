@@ -117,7 +117,7 @@ export default function Home() {
       <section className="technology light-section" id="technology">
         <div className="wrap tech-layout">
           <div className="tech-heading"><p className="eyebrow">OUR TECHNOLOGY</p><h2>Advanced Equipment.<br/>Intelligent Workflows.</h2></div>
-          <div className="tech-cards">{tech.map(([icon,title,sub]) => <div key={title}><i>{icon}</i><strong>{title}</strong><small>{sub}</small></div>)}</div>
+          <div className="tech-cards">{tech.map(([,title,sub],index) => <div key={title}><i className={`equipment-image equipment-${index+1}`} aria-hidden="true"/><strong>{title}</strong><small>{sub}</small></div>)}</div>
         </div>
         <div className="wrap tech-feature">
           <div className="tech-drone"><span className="rotor rleft"/><span className="rotor rright"/><i/><b>SC</b></div>
