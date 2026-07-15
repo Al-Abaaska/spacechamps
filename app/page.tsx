@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 const services = [
   ["⌾", "LiDAR Data Acquisition", "High-density point clouds and precise digital elevation data."],
@@ -45,6 +45,27 @@ function Brand() {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    setFormStatus("sending");
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/engwarsame16@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...data, _subject: "New Survey Request — SpaceChamps" }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setFormStatus("sent");
+      form.reset();
+    } catch {
+      setFormStatus("error");
+    }
+  };
 
   useEffect(() => {
     const animated = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal], [data-reveal-group]"));
@@ -185,8 +206,10 @@ export default function Home() {
         <div className="services-orbs" aria-hidden="true"><span className="orb o1"/><span className="orb o2"/><span className="orb o3"/></div>
         <div className="wrap">
           <div className="services-intro" data-reveal="left"><p className="eyebrow">OUR SERVICES</p><h2>Comprehensive <span>Geospatial</span> Solutions</h2><p>From field capture to final deliverables, one connected geospatial workflow.</p></div>
-          <div className="service-grid" data-reveal-group>
-            {services.map(([icon,title,text]) => <article className="service-card" key={title}><span className="service-icon">{icon}</span><h3>{title}</h3><p>{text}</p><a className="service-link" href="#contact" aria-label={`Request ${title}`}>Learn more <b>→</b></a></article>)}
+          <div className="service-marquee" data-reveal>
+            <div className="service-track">
+              {[...services, ...services].map(([icon,title,text], i) => <article className="service-card" key={i}><span className="service-icon">{icon}</span><h3>{title}</h3><p>{text}</p></article>)}
+            </div>
           </div>
         </div>
       </section>
@@ -217,15 +240,40 @@ export default function Home() {
 
       <section className="coverage-cta" id="coverage">
         <div className="wrap cta-grid">
-          <div data-reveal="left"><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with <span>Precision Data?</span></h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div><a className="button blue" href="mailto:info@spacechamps.com">Request a Survey</a><a className="button outline" href="#contact">Get a Consultation ↗</a></div></div>
-          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a href="tel:+12025550147"><i>⌕</i> +1 (202) 555-0147</a><a href="mailto:info@spacechamps.com"><i>@</i> info@spacechamps.com</a><p><i>⌖</i> Regional operations across<br/>Africa &amp; Asia</p></div>
+          <div data-reveal="left"><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with <span>Precision Data?</span></h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div className="cta-actions"><button type="button" className="button blue" onClick={() => { setFormStatus("idle"); setModalOpen(true); }}>Request a Survey</button></div></div>
+          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a href="tel:+12025550147"><i>⌕</i> +1 (202) 555-0147</a><a href="mailto:engwarsame16@gmail.com"><i>@</i> engwarsame16@gmail.com</a><p><i>⌖</i> Regional operations across<br/>Algeria &amp; Qatar</p></div>
           <div className="world-map" aria-label="SpaceChamps coverage across Africa and Asia" data-reveal="right"><span className="africa-dot"/><span className="asia-dot"/><i>AFRICA</i><b>ASIA</b></div>
         </div>
       </section>
 
-      <section className="map-strip" data-reveal>
-        <iframe title="Representative SpaceChamps operations location" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=36.68%2C-1.38%2C36.95%2C-1.18&amp;layer=mapnik&amp;marker=-1.2864%2C36.8172"/>
-        <div><p>REPRESENTATIVE LOCATION</p><h3>Nairobi, Kenya</h3><span>Placeholder until the official office address is confirmed.</span><a href="https://www.openstreetmap.org/?mlat=-1.2864&amp;mlon=36.8172#map=12/-1.2864/36.8172" target="_blank" rel="noreferrer">Open Map ↗</a></div>
+      <section className="locations" id="locations" data-reveal>
+        <div className="wrap">
+          <div className="locations-head" data-reveal="left">
+            <p className="eyebrow">OUR LOCATIONS</p>
+            <h2>Regional <span>Operations</span></h2>
+            <p>Serving clients across two continents with dedicated regional teams.</p>
+          </div>
+          <div className="locations-grid">
+            <article className="location-card">
+              <div className="location-map"><iframe title="SpaceChamps — Algiers, Algeria" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.0338%2C36.7388%2C3.1038%2C36.7688&amp;layer=mapnik&amp;marker=36.7538%2C3.0588"/></div>
+              <div className="location-info">
+                <span className="location-region">AFRICA</span>
+                <h3>Algiers, Algeria</h3>
+                <p>Rue Didouche Mourad, Algiers 16000, Algeria</p>
+                <a href="https://www.openstreetmap.org/?mlat=36.7538&amp;mlon=3.0588#map=15/36.7538/3.0588" target="_blank" rel="noreferrer">Open Map ↗</a>
+              </div>
+            </article>
+            <article className="location-card">
+              <div className="location-map"><iframe title="SpaceChamps — Doha, Qatar" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=51.5010%2C25.2604%2C51.5610%2C25.3104&amp;layer=mapnik&amp;marker=25.2854%2C51.5310"/></div>
+              <div className="location-info">
+                <span className="location-region">ASIA</span>
+                <h3>Doha, Qatar</h3>
+                <p>Al Corniche Street, Doha, Qatar</p>
+                <a href="https://www.openstreetmap.org/?mlat=25.2854&amp;mlon=51.5310#map=15/25.2854/51.5310" target="_blank" rel="noreferrer">Open Map ↗</a>
+              </div>
+            </article>
+          </div>
+        </div>
       </section>
 
       <footer>
@@ -234,10 +282,29 @@ export default function Home() {
           <div><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Services</a><a href="#technology">Technology</a></div>
           <div><h4>Industries</h4><a href="#industries">Government</a><a href="#industries">Engineering</a><a href="#industries">Construction</a><a href="#industries">Mining</a></div>
           <div><h4>Services</h4><a href="#services">LiDAR Surveys</a><a href="#services">Aerial Mapping</a><a href="#services">3D Modelling</a><a href="#services">GIS Solutions</a></div>
-          <div><h4>Follow Us</h4><div className="socials"><a href="#contact">in</a><a href="#contact">▶</a><a href="#contact">𝕏</a></div></div>
+          <div><h4>Follow Us</h4><div className="socials"><a href="#contact" aria-label="LinkedIn">in</a><a href="#contact" aria-label="X">𝕏</a></div></div>
         </div>
         <div className="wrap copyright"><span>© 2026 SpaceChamps. All rights reserved.</span><span>Precision in every point.</span></div>
       </footer>
+
+      {modalOpen && (
+        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="modal-close" onClick={() => setModalOpen(false)} aria-label="Close">✕</button>
+            <h3>Request a Survey</h3>
+            <p>Tell us about your project and our team will get back to you shortly.</p>
+            <form onSubmit={handleSubmit}>
+              <input name="name" placeholder="Full name" required />
+              <input name="email" type="email" placeholder="Email address" required />
+              <input name="subject" placeholder="Subject" required />
+              <textarea name="message" placeholder="Project details, location, timeline…" rows={4} required />
+              <button className="button blue" type="submit" disabled={formStatus === "sending"}>{formStatus === "sending" ? "Sending…" : "Send Message"}</button>
+              {formStatus === "sent" && <p className="form-success">✓ Thank you! Your message has been sent to our team.</p>}
+              {formStatus === "error" && <p className="form-error">Something went wrong. Please email us directly at engwarsame16@gmail.com</p>}
+            </form>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
