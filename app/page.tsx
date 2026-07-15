@@ -177,21 +177,22 @@ export default function Home() {
           <div className="about-copy" data-reveal="left">
             <p className="eyebrow">ABOUT SPACECHAMPS</p>
             <h2>Precision Data.<br/>Smarter Decisions.<br/><span>Stronger Infrastructure.</span></h2>
-            <p>SpaceChamps brings drone-based LiDAR, aerial mapping, and GIS expertise into one connected geospatial workflow.</p>
-            <p>We turn complex terrain and infrastructure data into precise, decision-ready intelligence for planning, design, and delivery.</p>
-            <div className="about-capabilities"><span>LiDAR acquisition</span><span>Aerial mapping</span><span>GIS intelligence</span></div>
+            <p>For over <strong>14 years</strong>, SpaceChamps has been a trusted leader in drone-based LiDAR, aerial mapping, and geospatial intelligence — empowering governments, engineering firms, and enterprises to build with confidence.</p>
+            <p>Since 2012, we have completed thousands of missions across Africa and Asia, combining deep field expertise with cutting-edge hardware and AI-powered processing to capture reality at centimeter-level precision.</p>
+            <p>We turn complex terrain and infrastructure data into decision-ready intelligence — accelerating planning, design, and delivery on the projects that shape our world.</p>
+            <div className="about-capabilities"><span>LiDAR acquisition</span><span>Aerial mapping</span><span>GIS intelligence</span><span>3D modelling</span><span>Data processing</span></div>
             <a className="button blue" href="#technology">Explore Our Technology <b>→</b></a>
           </div>
           <div className="about-media" data-reveal="right">
             <img src="/equipment/zenmuse-l2-field.jpg" alt="Survey operator flying a LiDAR-equipped drone in mountainous terrain" loading="lazy" />
-            <div className="about-photo-copy"><span>FIELD-TO-INSIGHT</span><strong>Capture reality.<br/>Deliver certainty.</strong></div>
+            <div className="about-photo-copy"><span>FIELD-TO-INSIGHT · EST. 2012</span><strong>Capture reality.<br/>Deliver certainty.</strong></div>
             <div className="about-quality"><i>LIVE</i><b data-count="98.7" data-decimals="1" data-suffix="%">0</b><small>Data quality target</small></div>
           </div>
         </div>
         <div className="wrap about-stats" data-reveal-group>
-          <article><span>01</span><strong data-count="500" data-suffix="+">0</strong><small>Projects supported</small></article>
-          <article><span>02</span><strong data-count="250" data-suffix="+">0</strong><small>Enterprise missions</small></article>
-          <article><span>03</span><strong data-count="50" data-suffix="+">0</strong><small>Mission configurations</small></article>
+          <article><span>01</span><strong data-count="14" data-suffix="+">0</strong><small>Years of experience</small></article>
+          <article><span>02</span><strong data-count="500" data-suffix="+">0</strong><small>Projects delivered</small></article>
+          <article><span>03</span><strong data-count="250" data-suffix="+">0</strong><small>Enterprise clients</small></article>
           <article><span>04</span><strong data-count="98.7" data-decimals="1" data-suffix="%">0</strong><small>Data quality target</small></article>
         </div>
       </section>
