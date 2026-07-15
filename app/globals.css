@@ -137,9 +137,11 @@ img { display: block; max-width: 100%; }
 .drone-stage .pulse.p2 { animation-delay: 1s; }
 .drone-stage .pulse.p3 { animation-delay: 2s; }
 @keyframes radar { 0% { transform: scale(.7); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
-.drone-card { position: relative; z-index: 3; width: 64%; height: 64%; border-radius: 50%; overflow: hidden; border: 3px solid rgba(86, 171, 255, .55); box-shadow: 0 30px 70px rgba(0, 0, 0, .55), 0 0 70px rgba(56, 189, 248, .3); }
-.drone-card img { width: 100%; height: 100%; object-fit: cover; }
-.drone-card::after { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 40px rgba(3, 15, 31, .55); pointer-events: none; }
+.drone-glow { position: absolute; width: 58%; height: 58%; border-radius: 50%; background: radial-gradient(circle, rgba(56, 189, 248, .28), transparent 70%); filter: blur(22px); z-index: 0; }
+.drone-svg { position: relative; z-index: 3; width: 84%; height: auto; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .5)); }
+.drone-svg .rotor { transform-box: fill-box; transform-origin: center; animation: rotor-spin .14s linear infinite; }
+.drone-svg .rotor.rev { animation-direction: reverse; }
+@keyframes rotor-spin { to { transform: rotate(360deg); } }
 .drone-scan { position: absolute; left: 50%; top: 56%; transform: translateX(-50%); width: 62%; height: 44%; z-index: 1; background: linear-gradient(180deg, rgba(56, 189, 248, .42), rgba(56, 189, 248, 0) 78%); clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%); filter: blur(1px); animation: scan-glow 2.4s ease-in-out infinite; }
 @keyframes scan-glow { 0%, 100% { opacity: .4; } 50% { opacity: .9; } }
 
@@ -730,7 +732,7 @@ footer { background: var(--navy); color: #fff; padding: 64px 0 24px; }
   html { scroll-behavior: auto; }
   .hero::after, .hero-content .overline, .hero-content h1, .hero-content .hero-lead, .hero-content .hero-buttons,
   .proof-row > div, .about-media.is-visible > img, .about-quality i, .world-map span,
-  .drone-stage, .drone-stage::before, .drone-stage::after, .drone-stage .pulse, .drone-scan,
+  .drone-stage, .drone-stage::before, .drone-stage::after, .drone-stage .pulse, .drone-scan, .drone-svg .rotor,
   .services-orbs .orb, .marquee-track, .service-track, .contact-summary::before, .workflow-grid article > b,
   .hero h1 span, .about-copy h2 span, .services-intro h2 span, .tech-heading h2 span,
   .workflow-layout h2 span, .industry-layout h2 span, .coverage-cta h2 span {

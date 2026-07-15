@@ -161,9 +161,50 @@ export default function Home() {
           <div className="hero-visual" aria-hidden="true">
             <div className="drone-stage">
               <span className="pulse p1"/><span className="pulse p2"/><span className="pulse p3"/>
-              <div className="drone-card">
-                <img src="/equipment/matrice-350-field.jpg" alt="DJI Matrice 350 RTK survey drone in flight" loading="lazy" />
-              </div>
+              <span className="drone-glow"/>
+              <svg className="drone-svg" viewBox="0 0 200 200" role="img" aria-label="Survey drone with spinning rotors">
+                <defs>
+                  <linearGradient id="drbody" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#1d4068" />
+                    <stop offset="1" stopColor="#0a1d36" />
+                  </linearGradient>
+                </defs>
+                <g stroke="#274f76" strokeWidth="7" strokeLinecap="round">
+                  <line x1="80" y1="93" x2="50" y2="55" />
+                  <line x1="120" y1="93" x2="150" y2="55" />
+                  <line x1="80" y1="107" x2="50" y2="145" />
+                  <line x1="120" y1="107" x2="150" y2="145" />
+                </g>
+                <rect x="72" y="84" width="56" height="32" rx="15" fill="url(#drbody)" stroke="rgba(86,171,255,.55)" strokeWidth="1.5" />
+                <circle cx="100" cy="100" r="7.5" fill="#08182e" stroke="rgba(56,189,248,.75)" strokeWidth="1.5" />
+                <circle cx="100" cy="100" r="2.6" fill="#7dd3fc" />
+                <g fill="#143a5e" stroke="rgba(86,171,255,.55)" strokeWidth="1.5">
+                  <circle cx="50" cy="55" r="9" />
+                  <circle cx="150" cy="55" r="9" />
+                  <circle cx="50" cy="145" r="9" />
+                  <circle cx="150" cy="145" r="9" />
+                </g>
+                <g className="rotor">
+                  <circle cx="50" cy="55" r="27" fill="rgba(56,189,248,.07)" />
+                  <rect x="48" y="31" width="4" height="48" rx="2" fill="rgba(234,244,255,.6)" />
+                  <rect x="26" y="53" width="48" height="4" rx="2" fill="rgba(234,244,255,.6)" />
+                </g>
+                <g className="rotor rev">
+                  <circle cx="150" cy="55" r="27" fill="rgba(56,189,248,.07)" />
+                  <rect x="148" y="31" width="4" height="48" rx="2" fill="rgba(234,244,255,.6)" />
+                  <rect x="126" y="53" width="48" height="4" rx="2" fill="rgba(234,244,255,.6)" />
+                </g>
+                <g className="rotor rev">
+                  <circle cx="50" cy="145" r="27" fill="rgba(56,189,248,.07)" />
+                  <rect x="48" y="121" width="4" height="48" rx="2" fill="rgba(234,244,255,.6)" />
+                  <rect x="26" y="143" width="48" height="4" rx="2" fill="rgba(234,244,255,.6)" />
+                </g>
+                <g className="rotor">
+                  <circle cx="150" cy="145" r="27" fill="rgba(56,189,248,.07)" />
+                  <rect x="148" y="121" width="4" height="48" rx="2" fill="rgba(234,244,255,.6)" />
+                  <rect x="126" y="143" width="48" height="4" rx="2" fill="rgba(234,244,255,.6)" />
+                </g>
+              </svg>
               <div className="drone-scan"/>
             </div>
           </div>
