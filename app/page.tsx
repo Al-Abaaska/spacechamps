@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const services = [
   ["⌾", "LiDAR Data Acquisition", "High-density point clouds and precise digital elevation data."],
@@ -46,6 +46,28 @@ function Brand() {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const animated = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal], [data-reveal-group]"));
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      animated.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -45px 0px" });
+
+    animated.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main>
       <header className="topbar">
@@ -84,7 +106,7 @@ export default function Home() {
 
       <section className="about light-section" id="about">
         <div className="wrap about-panel">
-          <div className="about-copy">
+          <div className="about-copy" data-reveal="left">
             <p className="eyebrow">ABOUT SPACECHAMPS</p>
             <h2>Precision Data.<br/>Smarter Decisions.<br/><span>Stronger Infrastructure.</span></h2>
             <p>SpaceChamps brings drone-based LiDAR, aerial mapping, and GIS expertise into one connected geospatial workflow.</p>
@@ -92,13 +114,13 @@ export default function Home() {
             <div className="about-capabilities"><span>LiDAR acquisition</span><span>Aerial mapping</span><span>GIS intelligence</span></div>
             <a className="button blue" href="#technology">Explore Our Technology <b>→</b></a>
           </div>
-          <div className="about-media">
+          <div className="about-media" data-reveal="right">
             <img src="/equipment/zenmuse-l2-field.jpg" alt="Survey operator flying a LiDAR-equipped drone in mountainous terrain" loading="lazy" />
             <div className="about-photo-copy"><span>FIELD-TO-INSIGHT</span><strong>Capture reality.<br/>Deliver certainty.</strong></div>
             <div className="about-quality"><i>LIVE</i><b>98.7%</b><small>Data quality target</small></div>
           </div>
         </div>
-        <div className="wrap about-stats">
+        <div className="wrap about-stats" data-reveal-group>
           <article><span>01</span><strong>500+</strong><small>Projects supported</small></article>
           <article><span>02</span><strong>250+</strong><small>Enterprise missions</small></article>
           <article><span>03</span><strong>50+</strong><small>Mission configurations</small></article>
@@ -108,8 +130,8 @@ export default function Home() {
 
       <section className="services dark-section" id="services">
         <div className="wrap services-layout">
-          <div className="services-intro"><p className="eyebrow">OUR SERVICES</p><h2>Comprehensive Geospatial Solutions</h2><p>From field capture to final deliverables, one connected geospatial workflow.</p></div>
-          <div className="service-grid">
+          <div className="services-intro" data-reveal="left"><p className="eyebrow">OUR SERVICES</p><h2>Comprehensive Geospatial Solutions</h2><p>From field capture to final deliverables, one connected geospatial workflow.</p></div>
+          <div className="service-grid" data-reveal-group>
             {services.map(([icon,title,text]) => <article className="service-card" key={title}><i>{icon}</i><h3>{title}</h3><p>{text}</p><a href="#contact" aria-label={`Request ${title}`}>→</a></article>)}
           </div>
         </div>
@@ -117,39 +139,39 @@ export default function Home() {
 
       <section className="technology light-section" id="technology">
         <div className="wrap tech-layout">
-          <div className="tech-heading"><p className="eyebrow">OUR TECHNOLOGY</p><h2>Advanced Equipment.<br/>Intelligent Workflows.</h2></div>
+          <div className="tech-heading" data-reveal="left"><p className="eyebrow">OUR TECHNOLOGY</p><h2>Advanced Equipment.<br/>Intelligent Workflows.</h2></div>
           <div className="tech-showcase">
-            <div className="tech-cards">{tech.map(({image,title,sub,alt}) => <article className="tech-card" key={title}><div className="tech-image"><img src={image} alt={alt} loading="lazy" /></div><strong>{title}</strong><small>{sub}</small></article>)}</div>
+            <div className="tech-cards" data-reveal-group>{tech.map(({image,title,sub,alt}) => <article className="tech-card" key={title}><div className="tech-image"><img src={image} alt={alt} loading="lazy" /></div><strong>{title}</strong><small>{sub}</small></article>)}</div>
           </div>
         </div>
         <div className="wrap tech-feature">
-          <div className="tech-points"><div><i>⌾</i><span><b>High-accuracy sensors</b><small>Centimeter-level data</small></span></div><div><i>✣</i><span><b>AI-powered processing</b><small>Faster insights</small></span></div><div><i>⌁</i><span><b>Cloud-based workflows</b><small>Secure &amp; scalable</small></span></div><div><i>▣</i><span><b>Multi-platform delivery</b><small>Web, mobile &amp; desktop</small></span></div></div>
+          <div className="tech-points" data-reveal-group><div><i>⌾</i><span><b>High-accuracy sensors</b><small>Centimeter-level data</small></span></div><div><i>✣</i><span><b>AI-powered processing</b><small>Faster insights</small></span></div><div><i>⌁</i><span><b>Cloud-based workflows</b><small>Secure &amp; scalable</small></span></div><div><i>▣</i><span><b>Multi-platform delivery</b><small>Web, mobile &amp; desktop</small></span></div></div>
         </div>
       </section>
 
       <section className="industry-band" id="industries">
         <div className="wrap industry-layout">
-          <div><p className="eyebrow">INDUSTRIES WE SERVE</p><h2>Empowering Industries<br/>with Geospatial Intelligence</h2></div>
-          <div className="industry-grid">{industries.map(([icon,title,sub]) => <div key={title}><i>{icon}</i><b>{title}</b><small>{sub}</small></div>)}</div>
+          <div data-reveal="left"><p className="eyebrow">INDUSTRIES WE SERVE</p><h2>Empowering Industries<br/>with Geospatial Intelligence</h2></div>
+          <div className="industry-grid" data-reveal-group>{industries.map(([icon,title,sub]) => <div key={title}><i>{icon}</i><b>{title}</b><small>{sub}</small></div>)}</div>
         </div>
       </section>
 
       <section className="workflow light-section" id="workflow">
         <div className="wrap workflow-layout">
-          <div><p className="eyebrow">OUR WORKFLOW</p><h2>From Data to Decisions</h2></div>
-          <div className="workflow-grid">{workflow.map(([num,title,text],index)=><article key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p><i className={`flow-image f${index+1}`}/>{index<workflow.length-1 && <b>→</b>}</article>)}</div>
+          <div data-reveal="left"><p className="eyebrow">OUR WORKFLOW</p><h2>From Data to Decisions</h2></div>
+          <div className="workflow-grid" data-reveal-group>{workflow.map(([num,title,text],index)=><article key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p><i className={`flow-image f${index+1}`}/>{index<workflow.length-1 && <b>→</b>}</article>)}</div>
         </div>
       </section>
 
       <section className="coverage-cta" id="coverage">
         <div className="wrap cta-grid">
-          <div><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with Precision Data?</h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div><a className="button blue" href="mailto:info@spacechamps.com">Request a Survey</a><a className="button outline" href="#contact">Get a Consultation ↗</a></div></div>
-          <div className="contact-summary" id="contact"><h3>Contact SpaceChamps</h3><a href="tel:+12025550147"><i>⌕</i> +1 (202) 555-0147</a><a href="mailto:info@spacechamps.com"><i>@</i> info@spacechamps.com</a><p><i>⌖</i> Regional operations across<br/>Africa &amp; Asia</p></div>
-          <div className="world-map" aria-label="SpaceChamps coverage across Africa and Asia"><span className="africa-dot"/><span className="asia-dot"/><i>AFRICA</i><b>ASIA</b></div>
+          <div data-reveal="left"><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with Precision Data?</h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div><a className="button blue" href="mailto:info@spacechamps.com">Request a Survey</a><a className="button outline" href="#contact">Get a Consultation ↗</a></div></div>
+          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a href="tel:+12025550147"><i>⌕</i> +1 (202) 555-0147</a><a href="mailto:info@spacechamps.com"><i>@</i> info@spacechamps.com</a><p><i>⌖</i> Regional operations across<br/>Africa &amp; Asia</p></div>
+          <div className="world-map" aria-label="SpaceChamps coverage across Africa and Asia" data-reveal="right"><span className="africa-dot"/><span className="asia-dot"/><i>AFRICA</i><b>ASIA</b></div>
         </div>
       </section>
 
-      <section className="map-strip">
+      <section className="map-strip" data-reveal>
         <iframe title="Representative SpaceChamps operations location" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=36.68%2C-1.38%2C36.95%2C-1.18&amp;layer=mapnik&amp;marker=-1.2864%2C36.8172"/>
         <div><p>REPRESENTATIVE LOCATION</p><h3>Nairobi, Kenya</h3><span>Placeholder until the official office address is confirmed.</span><a href="https://www.openstreetmap.org/?mlat=-1.2864&amp;mlon=36.8172#map=12/-1.2864/36.8172" target="_blank" rel="noreferrer">Open Map ↗</a></div>
       </section>
