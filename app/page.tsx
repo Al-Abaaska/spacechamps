@@ -168,14 +168,42 @@ export default function Home() {
 
       <section className="contact shell" id="contact">
         <div className="contact-panel">
-          <div><div className="section-tag light">START A PROJECT</div><h2>Bring your project<br/><em>into focus.</em></h2><p>Tell us where you&apos;re working and what you need to know. Our geospatial team will help shape the right mission.</p><div className="contact-detail"><span>REGIONAL COVERAGE</span><b>Africa · Asia</b></div><div className="contact-detail"><span>GENERAL ENQUIRIES</span><b>projects@spacechamps.com</b></div></div>
-          {submitted ? <div className="form-success" role="status" aria-live="polite"><span>✓</span><h3>Project brief received.</h3><p>Thank you. A SpaceChamps geospatial specialist will review your requirements and respond shortly.</p><button type="button" onClick={()=>setSubmitted(false)}>Send another enquiry →</button></div> : <form onSubmit={(e)=>{e.preventDefault();setSubmitted(true)}}>
-            <label>Name<input required placeholder="Your full name" /></label>
-            <label>Work email<input required type="email" placeholder="name@company.com" /></label>
-            <div className="form-row"><label>Region<select defaultValue=""><option value="" disabled>Select region</option><option>Africa</option><option>Asia</option><option>Other</option></select></label><label>Service<select defaultValue=""><option value="" disabled>Select capability</option><option>LiDAR surveying</option><option>Aerial mapping</option><option>Infrastructure inspection</option><option>Other</option></select></label></div>
-            <label>Project overview<textarea placeholder="Location, site size, deliverables and timeline…" /></label>
-            <button className="btn primary" type="submit">Request a consultation <b>↗</b></button>
-          </form>}
+          <div className="contact-main">
+            <div className="contact-intro">
+              <div className="section-tag light">08 / CONTACT SPACECHAMPS</div>
+              <h2>Bring your project<br/><em>into focus.</em></h2>
+              <p>Tell us where you&apos;re working and what you need to know. Our geospatial team will help shape the right mission.</p>
+              <div className="contact-cards">
+                <a className="contact-card" href="mailto:info@spacechamps.com">
+                  <span className="contact-icon">@</span><small>EMAIL</small><strong>info@spacechamps.com</strong><i>Send an enquiry →</i>
+                </a>
+                <a className="contact-card" href="tel:+12025550147">
+                  <span className="contact-icon">⌕</span><small>PHONE / WHATSAPP</small><strong>+1 (202) 555-0147</strong><i>Temporary U.S. number</i>
+                </a>
+                <div className="contact-card">
+                  <span className="contact-icon">⌖</span><small>REGIONAL OPERATIONS</small><strong>Africa &amp; Asia</strong><i>Office address coming soon</i>
+                </div>
+              </div>
+            </div>
+            {submitted ? <div className="form-success" role="status" aria-live="polite"><span>✓</span><h3>Project brief received.</h3><p>Thank you. A SpaceChamps geospatial specialist will review your requirements and respond shortly.</p><button type="button" onClick={()=>setSubmitted(false)}>Send another enquiry →</button></div> : <form onSubmit={(e)=>{e.preventDefault();setSubmitted(true)}}>
+              <div className="form-kicker"><span>PROJECT ENQUIRY</span><b>Typically replies within 1 business day</b></div>
+              <label>Name<input required placeholder="Your full name" /></label>
+              <label>Work email<input required type="email" placeholder="name@company.com" /></label>
+              <div className="form-row"><label>Region<select defaultValue=""><option value="" disabled>Select region</option><option>Africa</option><option>Asia</option><option>Other</option></select></label><label>Service<select defaultValue=""><option value="" disabled>Select capability</option><option>LiDAR surveying</option><option>Aerial mapping</option><option>Infrastructure inspection</option><option>Other</option></select></label></div>
+              <label>Project overview<textarea placeholder="Location, site size, deliverables and timeline…" /></label>
+              <button className="btn primary" type="submit">Request a consultation <b>↗</b></button>
+            </form>}
+          </div>
+          <div className="location-map">
+            <iframe title="Representative SpaceChamps regional operations location in Nairobi" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=36.68%2C-1.38%2C36.95%2C-1.18&amp;layer=mapnik&amp;marker=-1.2864%2C36.8172" />
+            <div className="map-overlay">
+              <span><i /> REPRESENTATIVE LOCATION</span>
+              <strong>Nairobi, Kenya</strong>
+              <p>Regional coverage hub · Placeholder until the official office address is confirmed.</p>
+              <a href="https://www.openstreetmap.org/?mlat=-1.2864&amp;mlon=36.8172#map=12/-1.2864/36.8172" target="_blank" rel="noreferrer">Open larger map ↗</a>
+            </div>
+            <div className="map-coordinates">01°17&apos;11&quot;S &nbsp; 36°49&apos;02&quot;E</div>
+          </div>
         </div>
       </section>
 

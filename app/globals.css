@@ -17,3 +17,28 @@
 .hero-copy{filter:drop-shadow(0 5px 18px rgba(0,0,0,.4))}
 .scan-panel{background:rgba(4,18,24,.72)}
 @media(max-width:620px){.hero{background-position:62% center;background-image:linear-gradient(90deg,rgba(3,15,21,.96),rgba(3,15,21,.72)),linear-gradient(0deg,rgba(3,15,21,.86),transparent),url('/spacechamps-hero.png')}}
+
+/* Contact command center */
+.contact-panel{display:block;padding:0;overflow:hidden;background:#071a21;box-shadow:0 36px 90px rgba(3,18,23,.16)}
+.contact-main{display:grid;grid-template-columns:1.05fr .95fr;gap:72px;padding:68px}
+.contact-intro>p{max-width:560px;color:#80979d;line-height:1.7}
+.contact-cards{display:grid;grid-template-columns:repeat(3,1fr);margin-top:38px;border-top:1px solid rgba(255,255,255,.13);border-left:1px solid rgba(255,255,255,.13)}
+.contact-card{min-width:0;min-height:172px;padding:20px 17px;display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.13);border-bottom:1px solid rgba(255,255,255,.13);transition:.25s;background:rgba(255,255,255,.018)}
+a.contact-card:hover{background:rgba(92,242,255,.08);border-color:rgba(92,242,255,.35)}
+.contact-icon{width:35px;height:35px;display:grid;place-items:center;border:1px solid rgba(92,242,255,.42);color:var(--cyan);font:18px var(--mono);margin-bottom:24px}
+.contact-card small{font:7px var(--mono);letter-spacing:.11em;color:#56737a;margin-bottom:7px}
+.contact-card strong{font-size:12px;font-weight:500;color:#e3f1f2;overflow-wrap:anywhere}
+.contact-card i{font:7px var(--mono);font-style:normal;color:#607b82;margin-top:auto;padding-top:16px}
+.contact-main form{align-self:start;padding:34px;border:1px solid rgba(92,242,255,.16);background:rgba(255,255,255,.025)}
+.form-kicker{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:17px;margin-bottom:2px;font:7px var(--mono);letter-spacing:.08em;color:#59757c}
+.form-kicker span{color:var(--cyan)}
+.form-kicker b{font-weight:400;text-align:right}
+.location-map{height:420px;position:relative;border-top:1px solid rgba(92,242,255,.2);background:#10252a;overflow:hidden}
+.location-map:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(4,18,24,.72),transparent 48%),linear-gradient(0deg,rgba(4,18,24,.22),transparent)}
+.location-map iframe{width:100%;height:100%;border:0;filter:grayscale(1) invert(.9) hue-rotate(145deg) brightness(.64) contrast(1.25);opacity:.88}
+.map-overlay{position:absolute;z-index:2;left:42px;top:42px;width:325px;padding:25px;background:rgba(4,18,24,.9);border:1px solid rgba(92,242,255,.35);backdrop-filter:blur(12px);color:white}
+.map-overlay>span{font:7px var(--mono);letter-spacing:.12em;color:#68858c}.map-overlay>span i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#72ff9c;box-shadow:0 0 12px #72ff9c;margin-right:7px}
+.map-overlay strong{display:block;font-size:25px;margin:18px 0 8px}.map-overlay p{font-size:11px;line-height:1.55;color:#7e989e}.map-overlay a{display:inline-block;margin-top:10px;padding-bottom:5px;border-bottom:1px solid var(--cyan);font:8px var(--mono);letter-spacing:.08em;color:var(--cyan);text-transform:uppercase}
+.map-coordinates{position:absolute;z-index:2;right:25px;bottom:20px;padding:10px 14px;background:rgba(4,18,24,.85);color:#779096;font:7px var(--mono);letter-spacing:.1em}
+@media(max-width:900px){.contact-main{grid-template-columns:1fr;padding:48px;gap:44px}.contact-cards{max-width:none}.location-map{height:390px}}
+@media(max-width:620px){.contact-main{padding:32px 22px}.contact-cards{grid-template-columns:1fr}.contact-card{min-height:135px}.contact-main form{padding:24px 18px}.form-kicker{display:block}.form-kicker b{display:block;text-align:left;margin-top:8px}.location-map{height:460px}.map-overlay{left:16px;right:16px;top:18px;width:auto}.map-coordinates{right:16px;bottom:14px}}
