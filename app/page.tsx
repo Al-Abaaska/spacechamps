@@ -158,6 +158,15 @@ export default function Home() {
             <p className="hero-lead">SpaceChamps delivers accurate, reliable, and actionable geospatial data using cutting-edge drone technology, LiDAR, and AI-powered analytics.</p>
             <div className="hero-buttons"><a className="button blue" href="#services">Our Services <b>→</b></a><a className="button outline" href="#contact">Request a Survey <b>⌖</b></a></div>
           </div>
+          <div className="hero-visual" aria-hidden="true">
+            <div className="drone-stage">
+              <span className="pulse p1"/><span className="pulse p2"/><span className="pulse p3"/>
+              <div className="drone-card">
+                <img src="/equipment/matrice-350-field.jpg" alt="DJI Matrice 350 RTK survey drone in flight" loading="lazy" />
+              </div>
+              <div className="drone-scan"/>
+            </div>
+          </div>
         </div>
         <div className="wrap proof-row">
           <div><i>⌾</i><span><b>High Accuracy</b><small>Centimeter-level precision</small></span></div>
