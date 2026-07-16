@@ -1,0 +1,82 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1e3d"/>
+      <stop offset="100%" stop-color="#0d2a52"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2d7ff9"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="gray" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8a9bb5"/>
+      <stop offset="100%" stop-color="#6b7d96"/>
+    </linearGradient>
+    <linearGradient id="terrain1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a6fd4"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="terrain2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6b7d96"/>
+      <stop offset="100%" stop-color="#8a9bb5"/>
+    </linearGradient>
+    <clipPath id="globeClip">
+      <ellipse cx="250" cy="310" rx="95" ry="42"/>
+    </clipPath>
+  </defs>
+
+  <!-- Orbit arc -->
+  <ellipse cx="252" cy="250" rx="165" ry="135" fill="none" stroke="url(#blue)" stroke-width="5" stroke-dasharray="8 0" opacity=".85" transform="rotate(-15 252 250)"/>
+
+  <!-- S letterform - dark navy -->
+  <path d="M225 100 C225 100, 305 95, 310 140 C315 180, 255 195, 240 210 C225 225, 310 240, 310 280 C310 310, 265 325, 225 320 L225 310 C260 315, 290 305, 290 280 C290 260, 230 250, 220 240 C210 230, 290 210, 295 180 C300 155, 260 110, 225 110 Z" fill="url(#navy)"/>
+
+  <!-- C letterform - gray, overlapped with S -->
+  <path d="M280 145 C310 130, 340 155, 340 200 C340 245, 310 275, 280 270 L280 255 C300 260, 320 240, 320 200 C320 165, 300 150, 280 158 Z" fill="url(#gray)"/>
+
+  <!-- Globe grid at bottom of SC -->
+  <g clip-path="url(#globeClip)">
+    <ellipse cx="250" cy="310" rx="95" ry="42" fill="none" stroke="#1a3a6a" stroke-width="1"/>
+    <!-- latitude lines -->
+    <ellipse cx="250" cy="298" rx="90" ry="20" fill="none" stroke="#3a6aaa" stroke-width=".8" opacity=".7"/>
+    <ellipse cx="250" cy="310" rx="95" ry="30" fill="none" stroke="#3a6aaa" stroke-width=".8" opacity=".6"/>
+    <ellipse cx="250" cy="322" rx="90" ry="20" fill="none" stroke="#3a6aaa" stroke-width=".8" opacity=".7"/>
+    <!-- longitude curves -->
+    <path d="M250 268 Q250 310 250 352" fill="none" stroke="#3a6aaa" stroke-width=".8" opacity=".7"/>
+    <path d="M210 275 Q230 310 210 345" fill="none" stroke="#3a6aaa" stroke-width=".8" opacity=".6"/>
+    <path d="M290 275 Q270 310 290 345" fill="none" stroke="#3a6aaa" stroke-width=".8" opacity=".6"/>
+    <path d="M175 290 Q215 310 175 330" fill="none" stroke="#3a6aaa" stroke-width=".7" opacity=".5"/>
+    <path d="M325 290 Q285 310 325 330" fill="none" stroke="#3a6aaa" stroke-width=".7" opacity=".5"/>
+  </g>
+
+  <!-- Terrain layer 1 - blue -->
+  <path d="M165 330 Q200 318 250 325 Q300 332 335 320 L340 338 Q300 348 250 342 Q200 336 160 348 Z" fill="url(#terrain1)" opacity=".9"/>
+  <!-- Terrain layer 2 - gray -->
+  <path d="M170 345 Q205 335 250 340 Q295 345 330 335 L335 350 Q295 360 250 355 Q205 350 165 360 Z" fill="url(#terrain2)" opacity=".8"/>
+
+  <!-- Satellite -->
+  <g transform="translate(310, 105) rotate(20)">
+    <!-- solar panels -->
+    <rect x="-18" y="-3" width="14" height="6" rx="1" fill="#0a1e3d"/>
+    <rect x="4" y="-3" width="14" height="6" rx="1" fill="#0a1e3d"/>
+    <!-- panel grid lines -->
+    <line x1="-11" y1="-3" x2="-11" y2="3" stroke="#2d7ff9" stroke-width=".5" opacity=".6"/>
+    <line x1="-4" y1="-3" x2="-4" y2="3" stroke="#2d7ff9" stroke-width=".5" opacity=".6"/>
+    <line x1="11" y1="-3" x2="11" y2="3" stroke="#2d7ff9" stroke-width=".5" opacity=".6"/>
+    <!-- body -->
+    <rect x="-3" y="-4" width="6" height="8" rx="1.5" fill="#0d2a52"/>
+    <!-- antenna -->
+    <line x1="0" y1="-4" x2="0" y2="-9" stroke="#0d2a52" stroke-width="1.2"/>
+    <circle cx="0" cy="-10" r="1.5" fill="#38bdf8"/>
+  </g>
+
+  <!-- Signal waves from satellite -->
+  <path d="M318 120 Q322 116 318 112" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
+  <path d="M323 124 Q329 117 323 110" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+  <path d="M328 128 Q336 118 328 108" fill="none" stroke="#38bdf8" stroke-width="1" stroke-linecap="round" opacity=".35"/>
+
+  <!-- SpaceChamps text -->
+  <text x="250" y="420" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="52" font-weight="800" letter-spacing="2">
+    <tspan fill="#0a1e3d">Space</tspan><tspan fill="#2d7ff9">Champs</tspan>
+  </text>
+</svg>

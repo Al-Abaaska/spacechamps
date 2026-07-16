@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 
 const services = [
   ["⌾", "LiDAR Data Acquisition", "High-density point clouds and precise digital elevation data."],
@@ -40,7 +41,7 @@ const workflow = [
 ];
 
 function Brand() {
-  return <span className="brand"><img src="/logo.svg" alt="SpaceChamps logo" className="brand-logo" /><b>Space<span>Champs</span></b></span>;
+  return <span className="brand"><img src="/spacechamps-favicon-v2.png" alt="" className="brand-logo" /><b>Space<span>Champs</span></b></span>;
 }
 
 export default function Home() {
@@ -143,9 +144,9 @@ export default function Home() {
           <a href="#home" aria-label="SpaceChamps home"><Brand /></a>
           <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}><i/><i/><i/></button>
           <nav className={menuOpen ? "open" : ""} aria-label="Main navigation">
-            {["Home","About","Services","Technology","Industries","Workflow","Coverage","Contact"].map(item => <a key={item} href={["About","Services","Technology","Industries"].includes(item) ? `/${item.toLowerCase()}` : `#${item.toLowerCase()}`} onClick={()=>setMenuOpen(false)}>{item}{!["Home","Contact"].includes(item) && <span>⌄</span>}</a>)}
+            {[["Home","/"],["About","/about"],["Services","/services"],["Technology","/technology"]].map(([label,href]) => <a key={label} href={href} onClick={()=>setMenuOpen(false)}>{label}</a>)}
           </nav>
-          <a className="nav-action" href="#contact">Request a Survey</a>
+          <button type="button" className="nav-action" onClick={() => { setFormStatus("idle"); setModalOpen(true); }}>Request a Survey</button>
         </div>
       </header>
 
@@ -156,7 +157,7 @@ export default function Home() {
             <p className="overline">GEOSPATIAL INTELLIGENCE, DELIVERED.</p>
             <h1>Advanced Drone &amp;<br/><span>LiDAR Surveying</span><br/>Solutions</h1>
             <p className="hero-lead">SpaceChamps delivers accurate, reliable, and actionable geospatial data using cutting-edge drone technology, LiDAR, and AI-powered analytics.</p>
-            <div className="hero-buttons"><a className="button blue" href="/services">Our Services <b>→</b></a><a className="button outline" href="#contact">Request a Survey <b>⌖</b></a></div>
+            <div className="hero-buttons"><a className="button blue" href="/services">Our Services <b>→</b></a><button type="button" className="button outline" onClick={() => { setFormStatus("idle"); setModalOpen(true); }}>Request a Survey <b>⌖</b></button></div>
           </div>
           <div className="hero-visual" aria-hidden="true">
             <div className="drone-stage">
@@ -304,7 +305,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="wrap proof-row">
+        <div className="wrap proof-row" data-reveal-stagger>
           <div><i>⌾</i><span><b>High Accuracy</b><small>Centimeter-level precision</small></span></div>
           <div><i>◈</i><span><b>Advanced Technology</b><small>LiDAR, AI &amp; cloud processing</small></span></div>
           <div><i>◎</i><span><b>Global Reach</b><small>Projects across Southeast Asia &amp; the Middle East</small></span></div>
@@ -358,7 +359,7 @@ export default function Home() {
       <section className="technology light-section" id="technology">
         <div className="wrap tech-heading" data-reveal="left"><p className="eyebrow">OUR TECHNOLOGY</p><h2>Advanced Equipment.<br/><span>Intelligent Workflows.</span></h2><p>Industry-leading hardware that captures reality at centimeter-level precision.</p></div>
         <div className="wrap">
-          <div className="tech-cards" data-reveal-group>{tech.map(({image,title,sub,alt}) => <article className="tech-card" key={title}><div className="tech-image"><img src={image} alt={alt} loading="lazy" /><span className="tech-tag">EQUIPMENT</span></div><div className="tech-meta"><strong>{title}</strong><small>{sub}</small></div></article>)}</div>
+          <div className="tech-cards" data-reveal-stagger>{tech.map(({image,title,sub,alt}) => <article className="tech-card shine-sweep" key={title}><div className="tech-image"><img src={image} alt={alt} loading="lazy" /><span className="tech-tag">EQUIPMENT</span></div><div className="tech-meta"><strong>{title}</strong><small>{sub}</small></div></article>)}</div>
         </div>
         <div className="wrap tech-feature">
           <div className="tech-points" data-reveal-group><div><i>⌾</i><span><b>High-accuracy sensors</b><small>Centimeter-level data</small></span></div><div><i>✣</i><span><b>AI-powered processing</b><small>Faster insights</small></span></div><div><i>⌁</i><span><b>Cloud-based workflows</b><small>Secure &amp; scalable</small></span></div><div><i>▣</i><span><b>Multi-platform delivery</b><small>Web, mobile &amp; desktop</small></span></div></div>
@@ -368,21 +369,21 @@ export default function Home() {
       <section className="industry-band" id="industries">
         <div className="wrap industry-layout">
           <div data-reveal="left"><p className="eyebrow">INDUSTRIES WE SERVE</p><h2>Empowering Industries<br/>with <span>Geospatial Intelligence</span></h2></div>
-          <div className="industry-grid" data-reveal-group>{industries.map(([icon,title,sub]) => <div key={title}><i>{icon}</i><b>{title}</b><small>{sub}</small></div>)}</div>
+          <div className="industry-grid" data-reveal-stagger>{industries.map(([icon,title,sub]) => <div key={title}><i>{icon}</i><b>{title}</b><small>{sub}</small></div>)}</div>
         </div>
       </section>
 
       <section className="workflow light-section" id="workflow">
         <div className="wrap workflow-layout">
           <div data-reveal="left"><p className="eyebrow">OUR WORKFLOW</p><h2>From Data to <span>Decisions</span></h2><p>A streamlined pipeline that turns raw aerial capture into decision-ready geospatial intelligence.</p></div>
-          <div className="workflow-grid" data-reveal-group>{workflow.map(([num,title,text],index)=><article key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p><i className={`flow-image f${index+1}`}/>{index<workflow.length-1 && <b>→</b>}</article>)}</div>
+          <div className="workflow-grid" data-reveal-stagger>{workflow.map(([num,title,text],index)=><article className="glow-border" key={num}><span>{num}</span><h3>{title}</h3><p>{text}</p><i className={`flow-image f${index+1}`}/>{index<workflow.length-1 && <b>→</b>}</article>)}</div>
         </div>
       </section>
 
       <section className="coverage-cta" id="coverage">
         <div className="wrap cta-grid">
           <div data-reveal="left"><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with <span>Precision Data?</span></h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div className="cta-actions"><button type="button" className="button blue" onClick={() => { setFormStatus("idle"); setModalOpen(true); }}>Request a Survey</button></div></div>
-          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a href="tel:+6283852094053"><i>⌕</i> +62 838-5209-4053</a><a href="mailto:engwarsame16@gmail.com"><i>@</i> engwarsame16@gmail.com</a><p><i>⌖</i> Regional operations across<br/>Indonesia &amp; Qatar</p></div>
+          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a className="contact-tile wa shine-sweep" href="https://wa.me/6283852094053" target="_blank" rel="noreferrer" aria-label="Chat with SpaceChamps on WhatsApp at +62 838-5209-4053"><span className="ct-icon">⌕</span><span className="ct-body"><b>WhatsApp Us</b><small className="contact-number">+62 838-5209-4053</small></span><span className="ct-arrow">↗</span></a><a className="contact-tile" href="mailto:engwarsame16@gmail.com"><span className="ct-icon">@</span><span className="ct-body"><b>Email Us</b><small>engwarsame16@gmail.com</small></span><span className="ct-arrow">↗</span></a><div className="contact-tile loc"><span className="ct-icon">⌖</span><span className="ct-body"><b>Our Locations</b><small>Jakarta, Indonesia · Doha, Qatar</small></span></div></div>
           <div className="world-map" aria-label="SpaceChamps coverage across Southeast Asia and Middle East" data-reveal="right"><span className="africa-dot"/><span className="asia-dot"/><i>SE ASIA</i><b>MIDDLE EAST</b></div>
         </div>
       </section>
@@ -420,19 +421,17 @@ export default function Home() {
       <footer>
         <div className="wrap footer-grid">
           <div><Brand/><p>Advanced drone, LiDAR, and geospatial solutions for a smarter, more connected world.</p></div>
-          <div><h4>Quick Links</h4><a href="/">Home</a><a href="/about">About Us</a><a href="/services">Services</a><a href="/technology">Technology</a></div>
-          <div><h4>Industries</h4><a href="/industries">Government</a><a href="/industries">Engineering</a><a href="/industries">Construction</a><a href="/industries">Mining</a></div>
-          <div><h4>Services</h4><a href="/services">LiDAR Surveys</a><a href="/services">Aerial Mapping</a><a href="/services">3D Modelling</a><a href="/services">GIS Solutions</a></div>
-          <div><h4>Follow Us</h4><div className="socials"><a href="#contact" aria-label="LinkedIn">in</a><a href="#contact" aria-label="X">𝕏</a></div></div>
+          <div><h4>Contact</h4><a href="https://wa.me/6283852094053" target="_blank" rel="noreferrer">WhatsApp · +62 838-5209-4053</a><a href="mailto:engwarsame16@gmail.com">engwarsame16@gmail.com</a><p style={{margin:"9px 0",color:"#8a9cae",fontSize:"14px"}}>Jakarta, Indonesia · Doha, Qatar</p></div>
+          <div><h4>Follow Us</h4><div className="socials"><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="X">X</a></div></div>
         </div>
         <div className="wrap copyright"><span>© 2026 SpaceChamps. All rights reserved.</span><span>Precision in every point.</span></div>
       </footer>
 
-      {modalOpen && (
-        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
+      {modalOpen && createPortal(
+        <div className="modal-overlay" onClick={() => setModalOpen(false)} role="presentation">
+          <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="survey-modal-title">
             <button type="button" className="modal-close" onClick={() => setModalOpen(false)} aria-label="Close">✕</button>
-            <h3>Request a Survey</h3>
+            <h3 id="survey-modal-title">Request a Survey</h3>
             <p>Tell us about your project and our team will get back to you shortly.</p>
             <form onSubmit={handleSubmit}>
               <input name="name" placeholder="Full name" required />
@@ -444,7 +443,8 @@ export default function Home() {
               {formStatus === "error" && <p className="form-error">Something went wrong. Please email us directly at engwarsame16@gmail.com</p>}
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </main>
   );

@@ -40,3 +40,7 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# local build temp/cache (kept on the workspace drive)
+/.tmp/
+/.npm-cache/
