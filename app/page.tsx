@@ -143,7 +143,7 @@ export default function Home() {
           <a href="#home" aria-label="SpaceChamps home"><Brand /></a>
           <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}><i/><i/><i/></button>
           <nav className={menuOpen ? "open" : ""} aria-label="Main navigation">
-            {["Home","About","Services","Technology","Industries","Workflow","Coverage","Contact"].map(item => <a key={item} href={`#${item.toLowerCase()}`} onClick={()=>setMenuOpen(false)}>{item}{!["Home","Contact"].includes(item) && <span>⌄</span>}</a>)}
+            {["Home","About","Services","Technology","Industries","Workflow","Coverage","Contact"].map(item => <a key={item} href={["About","Services","Technology","Industries"].includes(item) ? `/${item.toLowerCase()}` : `#${item.toLowerCase()}`} onClick={()=>setMenuOpen(false)}>{item}{!["Home","Contact"].includes(item) && <span>⌄</span>}</a>)}
           </nav>
           <a className="nav-action" href="#contact">Request a Survey</a>
         </div>
@@ -156,7 +156,7 @@ export default function Home() {
             <p className="overline">GEOSPATIAL INTELLIGENCE, DELIVERED.</p>
             <h1>Advanced Drone &amp;<br/><span>LiDAR Surveying</span><br/>Solutions</h1>
             <p className="hero-lead">SpaceChamps delivers accurate, reliable, and actionable geospatial data using cutting-edge drone technology, LiDAR, and AI-powered analytics.</p>
-            <div className="hero-buttons"><a className="button blue" href="#services">Our Services <b>→</b></a><a className="button outline" href="#contact">Request a Survey <b>⌖</b></a></div>
+            <div className="hero-buttons"><a className="button blue" href="/services">Our Services <b>→</b></a><a className="button outline" href="#contact">Request a Survey <b>⌖</b></a></div>
           </div>
           <div className="hero-visual" aria-hidden="true">
             <div className="drone-stage">
@@ -307,7 +307,7 @@ export default function Home() {
         <div className="wrap proof-row">
           <div><i>⌾</i><span><b>High Accuracy</b><small>Centimeter-level precision</small></span></div>
           <div><i>◈</i><span><b>Advanced Technology</b><small>LiDAR, AI &amp; cloud processing</small></span></div>
-          <div><i>◎</i><span><b>Global Reach</b><small>Projects across Africa &amp; Asia</small></span></div>
+          <div><i>◎</i><span><b>Global Reach</b><small>Projects across Southeast Asia &amp; the Middle East</small></span></div>
           <div><i>♙</i><span><b>Trusted by Leaders</b><small>Government &amp; enterprise clients</small></span></div>
         </div>
       </section>
@@ -382,8 +382,8 @@ export default function Home() {
       <section className="coverage-cta" id="coverage">
         <div className="wrap cta-grid">
           <div data-reveal="left"><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with <span>Precision Data?</span></h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div className="cta-actions"><button type="button" className="button blue" onClick={() => { setFormStatus("idle"); setModalOpen(true); }}>Request a Survey</button></div></div>
-          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a href="tel:+12025550147"><i>⌕</i> +1 (202) 555-0147</a><a href="mailto:engwarsame16@gmail.com"><i>@</i> engwarsame16@gmail.com</a><p><i>⌖</i> Regional operations across<br/>Algeria &amp; Qatar</p></div>
-          <div className="world-map" aria-label="SpaceChamps coverage across Africa and Asia" data-reveal="right"><span className="africa-dot"/><span className="asia-dot"/><i>AFRICA</i><b>ASIA</b></div>
+          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a href="tel:+6283852094053"><i>⌕</i> +62 838-5209-4053</a><a href="mailto:engwarsame16@gmail.com"><i>@</i> engwarsame16@gmail.com</a><p><i>⌖</i> Regional operations across<br/>Indonesia &amp; Qatar</p></div>
+          <div className="world-map" aria-label="SpaceChamps coverage across Southeast Asia and Middle East" data-reveal="right"><span className="africa-dot"/><span className="asia-dot"/><i>SE ASIA</i><b>MIDDLE EAST</b></div>
         </div>
       </section>
 
@@ -396,12 +396,12 @@ export default function Home() {
           </div>
           <div className="locations-grid">
             <article className="location-card">
-              <div className="location-map"><iframe title="SpaceChamps — Algiers, Algeria" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.0338%2C36.7388%2C3.1038%2C36.7688&amp;layer=mapnik&amp;marker=36.7538%2C3.0588"/></div>
+              <div className="location-map"><iframe title="SpaceChamps — Jakarta, Indonesia" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=106.8057%2C-6.2188%2C106.8257%2C-6.1988&amp;layer=mapnik&amp;marker=-6.2088%2C106.8157"/></div>
               <div className="location-info">
-                <span className="location-region">AFRICA</span>
-                <h3>Algiers, Algeria</h3>
-                <p>Rue Didouche Mourad, Algiers 16000, Algeria</p>
-                <a href="https://www.openstreetmap.org/?mlat=36.7538&amp;mlon=3.0588#map=15/36.7538/3.0588" target="_blank" rel="noreferrer">Open Map ↗</a>
+                <span className="location-region">ASIA</span>
+                <h3>Jakarta, Indonesia</h3>
+                <p>Jl. Sudirman No. 52, Jakarta Selatan 12190, Indonesia</p>
+                <a href="https://www.openstreetmap.org/?mlat=-6.2088&amp;mlon=106.8157#map=15/-6.2088/106.8157" target="_blank" rel="noreferrer">Open Map ↗</a>
               </div>
             </article>
             <article className="location-card">
@@ -420,9 +420,9 @@ export default function Home() {
       <footer>
         <div className="wrap footer-grid">
           <div><Brand/><p>Advanced drone, LiDAR, and geospatial solutions for a smarter, more connected world.</p></div>
-          <div><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Services</a><a href="#technology">Technology</a></div>
-          <div><h4>Industries</h4><a href="#industries">Government</a><a href="#industries">Engineering</a><a href="#industries">Construction</a><a href="#industries">Mining</a></div>
-          <div><h4>Services</h4><a href="#services">LiDAR Surveys</a><a href="#services">Aerial Mapping</a><a href="#services">3D Modelling</a><a href="#services">GIS Solutions</a></div>
+          <div><h4>Quick Links</h4><a href="/">Home</a><a href="/about">About Us</a><a href="/services">Services</a><a href="/technology">Technology</a></div>
+          <div><h4>Industries</h4><a href="/industries">Government</a><a href="/industries">Engineering</a><a href="/industries">Construction</a><a href="/industries">Mining</a></div>
+          <div><h4>Services</h4><a href="/services">LiDAR Surveys</a><a href="/services">Aerial Mapping</a><a href="/services">3D Modelling</a><a href="/services">GIS Solutions</a></div>
           <div><h4>Follow Us</h4><div className="socials"><a href="#contact" aria-label="LinkedIn">in</a><a href="#contact" aria-label="X">𝕏</a></div></div>
         </div>
         <div className="wrap copyright"><span>© 2026 SpaceChamps. All rights reserved.</span><span>Precision in every point.</span></div>
