@@ -55,7 +55,7 @@ export default function Home() {
     const data = Object.fromEntries(new FormData(form));
     setFormStatus("sending");
     try {
-      const res = await fetch("https://formsubmit.co/ajax/engwarsame16@gmail.com", {
+      const res = await fetch("https://formsubmit.co/ajax/Info@spacechamps.com", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ ...data, _subject: "New Survey Request — SpaceChamps" }),
@@ -383,7 +383,7 @@ export default function Home() {
       <section className="coverage-cta" id="coverage">
         <div className="wrap cta-grid">
           <div data-reveal="left"><p className="eyebrow">LET&apos;S WORK TOGETHER</p><h2>Ready to Elevate Your Projects<br/>with <span>Precision Data?</span></h2><p>Talk to SpaceChamps about the drone and geospatial solution that fits your mission.</p><div className="cta-actions"><button type="button" className="button blue" onClick={() => { setFormStatus("idle"); setModalOpen(true); }}>Request a Survey</button></div></div>
-          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a className="contact-tile wa shine-sweep" href="https://wa.me/6283852094053" target="_blank" rel="noreferrer" aria-label="Chat with SpaceChamps on WhatsApp at +62 838-5209-4053"><span className="ct-icon">⌕</span><span className="ct-body"><b>WhatsApp Us</b><small className="contact-number">+62 838-5209-4053</small></span><span className="ct-arrow">↗</span></a><a className="contact-tile" href="mailto:engwarsame16@gmail.com"><span className="ct-icon">@</span><span className="ct-body"><b>Email Us</b><small>engwarsame16@gmail.com</small></span><span className="ct-arrow">↗</span></a><div className="contact-tile loc"><span className="ct-icon">⌖</span><span className="ct-body"><b>Our Locations</b><small>Jakarta, Indonesia · Doha, Qatar</small></span></div></div>
+          <div className="contact-summary" id="contact" data-reveal><h3>Contact SpaceChamps</h3><a className="contact-tile wa shine-sweep" href="https://wa.me/6283852094053" target="_blank" rel="noreferrer" aria-label="Chat with SpaceChamps on WhatsApp at +62 838-5209-4053"><span className="ct-icon">⌕</span><span className="ct-body"><b>WhatsApp Us</b><small className="contact-number">+62 838-5209-4053</small></span><span className="ct-arrow">↗</span></a><a className="contact-tile" href="mailto:Info@spacechamps.com"><span className="ct-icon">@</span><span className="ct-body"><b>Email Us</b><small>Info@spacechamps.com</small></span><span className="ct-arrow">↗</span></a><div className="contact-tile loc"><span className="ct-icon">⌖</span><span className="ct-body"><b>Our Locations</b><small>Jakarta, Indonesia · Doha, Qatar</small></span></div></div>
           <div className="world-map" aria-label="SpaceChamps coverage across Southeast Asia and Middle East" data-reveal="right"><span className="africa-dot"/><span className="asia-dot"/><i>SE ASIA</i><b>MIDDLE EAST</b></div>
         </div>
       </section>
@@ -421,7 +421,7 @@ export default function Home() {
       <footer>
         <div className="wrap footer-grid">
           <div><Brand/><p>Advanced drone, LiDAR, and geospatial solutions for a smarter, more connected world.</p></div>
-          <div><h4>Contact</h4><a href="https://wa.me/6283852094053" target="_blank" rel="noreferrer">WhatsApp · +62 838-5209-4053</a><a href="mailto:engwarsame16@gmail.com">engwarsame16@gmail.com</a><p style={{margin:"9px 0",color:"#8a9cae",fontSize:"14px"}}>Jakarta, Indonesia · Doha, Qatar</p></div>
+          <div><h4>Contact</h4><a href="https://wa.me/6283852094053" target="_blank" rel="noreferrer">WhatsApp · +62 838-5209-4053</a><a href="mailto:Info@spacechamps.com">Info@spacechamps.com</a><p style={{margin:"9px 0",color:"#8a9cae",fontSize:"14px"}}>Jakarta, Indonesia · Doha, Qatar</p></div>
           <div><h4>Follow Us</h4><div className="socials"><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="X">X</a></div></div>
         </div>
         <div className="wrap copyright"><span>© 2026 SpaceChamps. All rights reserved.</span><span>Precision in every point.</span></div>
@@ -440,7 +440,7 @@ export default function Home() {
               <textarea name="message" placeholder="Project details, location, timeline…" rows={4} required />
               <button className="button blue" type="submit" disabled={formStatus === "sending"}>{formStatus === "sending" ? "Sending…" : "Send Message"}</button>
               {formStatus === "sent" && <p className="form-success">✓ Thank you! Your message has been sent to our team.</p>}
-              {formStatus === "error" && <p className="form-error">Something went wrong. Please email us directly at engwarsame16@gmail.com</p>}
+              {formStatus === "error" && <p className="form-error">Something went wrong. Please email us directly at Info@spacechamps.com</p>}
             </form>
           </div>
         </div>,
